@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Responsive Menu</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<script src="jquery.js"></script>
+		<link href="css/main.css" rel="stylesheet">
+		<link href="css/demo.css" rel="stylesheet">
+	</head>
+	<body>
+		
+		
+		<div class="wrapper">
+			<div class="main">
+				
+				<!-- Nav -->
+
+				<!--Nav for large screens-->
+				<nav class="nav">
+					<ul class="nav-list">
+						<li class="nav-item"><a href="#" trgt="tab-1">Tab 1 </a></li>
+						<li class="nav-item"><a href="#" trgt="tab-2">Tab 2</a></li>
+						<li class="nav-item"><a href="#" trgt="tab-3">Tab 3</a></li>
+						
+					</ul>
+				</nav>
+				<!--Nav for large screens-->
+
+
+				<!--Nav for mobile screens shown as a select-->
+				<select class="mob-nav" id="select-nav">
+					<option value="tab-1">tab1</option>
+					<option value="tab-2">tab2</option>
+					<option value="tab-3">tab3</option>
+				</select>
+				<!--Nav for mobile screens shown as a select-->
+
+
+				<!-- /Nav -->
+				
+				<!--Contents of tab-->
+				<div id="tabContentHolder" class="cont">
+					<div id="tab-1" class="tab-content">Content 1</div>
+					<div id="tab-2" class="tab-content">Content 2</div>
+					<div id="tab-3" class="tab-content">Content 3</div>
+				</div>
+				<!--Contents of tab-->
+
+
+			</div>
+		</div>
+		
+		<script>
+		$(document).ready(function(){
+			
+			//Code to activate tab 1
+			activateTab(1);
+			
+
+
+			//Show selected tab on dropdown change
+			$(".mob-nav").change(function(){
+			 var x = $( "select.mob-nav option:selected" ).attr('value').split('-')[1];
+			 activateTab(x);
+			});
+
+
+			//Show selected tab on nav-click
+			$("li.nav-item a").click(function(){
+				var x = $(this).attr("trgt").split('-')[1];
+				activateTab(x);
+			});
+
+
+			//function to hide all tabs
+			function clearTabs()
+			{
+				$(".tab-content").each(function(){
+					$(this).hide();
+				});
+				//clear underlines from nav-tabs
+				$(".nav-item a").each(function(){
+					$(this).css("border","none");
+				});
+				
+			}
+
+			function activateTab(i)
+			{
+				clearTabs();
+				$("#tab-"+i).show();
+				$("select.mob-nav").val("tab-"+i);
+				$("ul.nav-list li:nth-child("+i+")").children("a").css("border-bottom","5px solid #777777");
+				
+			}
+		});
+		
+		</script>
+	
+		
+	</body>
+</html>
