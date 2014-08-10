@@ -5,6 +5,7 @@
 		<title>Responsive Menu</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<script src="jquery.js"></script>
+		<script src="jquery.tabs.js"></script>
 		<link href="css/main.css" rel="stylesheet">
 		<link href="css/demo.css" rel="stylesheet">
 	</head>
@@ -19,9 +20,9 @@
 				<!--Nav for large screens-->
 				<nav class="nav">
 					<ul class="nav-list">
-						<li class="nav-item"><a href="#" trgt="tab-1">Tab 1 </a></li>
-						<li class="nav-item"><a href="#" trgt="tab-2">Tab 2</a></li>
-						<li class="nav-item"><a href="#" trgt="tab-3">Tab 3</a></li>
+						<li class="nav-item"><a href="#" trgt="tab-1" class="tablink">Tab 1 </a></li>
+						<li class="nav-item"><a href="#" trgt="tab-2" class="tablink">Tab 2</a></li>
+						<li class="nav-item"><a href="#" trgt="tab-3" class="tablink">Tab 3</a></li>
 						
 					</ul>
 				</nav>
@@ -50,53 +51,23 @@
 
 			</div>
 		</div>
-		
-		<script>
-		$(document).ready(function(){
-			
-			//Code to activate tab 1
-			activateTab(1);
-			
+		<script type="text/javascript">
+		var t;
 
-
-			//Show selected tab on dropdown change
-			$(".mob-nav").change(function(){
-			 var x = $( "select.mob-nav option:selected" ).attr('value').split('-')[1];
-			 activateTab(x);
-			});
-
-
-			//Show selected tab on nav-click
-			$("li.nav-item a").click(function(){
-				var x = $(this).attr("trgt").split('-')[1];
-				activateTab(x);
-			});
-
-
-			//function to hide all tabs
-			function clearTabs()
-			{
-				$(".tab-content").each(function(){
-					$(this).hide();
-				});
-				//clear underlines from nav-tabs
-				$(".nav-item a").each(function(){
-					$(this).css("border","none");
-				});
-				
-			}
-
-			function activateTab(i)
-			{
-				clearTabs();
-				$("#tab-"+i).show();
-				$("select.mob-nav").val("tab-"+i);
-				$("ul.nav-list li:nth-child("+i+")").children("a").css("border-bottom","5px solid #777777");
-				
-			}
-		});
-		
+		$(document).ready(function () { 
+		    t = $(".main").jqtabs({ 
+		        dummyOption: "dummyValue", 
+		        callbackFn: function (i) {
+		            alert("Hi, callback running with index " + i);
+		        },
+		        initTab: 2
+		        
+		    });
+		    alert('now I\'ll try to activate using exposed method');
+		    t.goToTab(3);
+		 });
 		</script>
+		
 	
 		
 	</body>
